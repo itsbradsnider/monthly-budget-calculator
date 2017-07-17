@@ -11,11 +11,9 @@
             console = window.console;
 
 
-
     //USER
     //*********************************//
     const   USER_ID = 1; // for now.
-
 
 
 
