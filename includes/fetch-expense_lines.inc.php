@@ -7,11 +7,11 @@
     //************************************************************************//
     //expense-lines.inc.php?budget=id&cat=id
     if (isset($_REQUEST['budget'])) {
-        $budget = $_REQUEST['budget'];
+        $budget = htmlspecialchars($_REQUEST['budget']);
     }
 
     if (isset($_REQUEST['cat'])) {
-        $cat = $_REQUEST['cat'];
+        $cat = htmlspecialchars($_REQUEST['cat']);
     }
 
     //quick access boolean to see if we're searching for all categories, or only

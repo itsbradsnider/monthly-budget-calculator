@@ -32,12 +32,12 @@
     elseif ($_REQUEST['do'] === "create") {
 
 
-        $user = $_REQUEST['user'];
-        $budget = $_REQUEST['budget'];
-        $category = $_REQUEST['category'];
-        $description = $_REQUEST['description'];
-        $amount = $_REQUEST['amount'];
-        $frequency = $_REQUEST['frequency'];
+        $user = htmlspecialchars($_REQUEST['user']);
+        $budget = htmlspecialchars($_REQUEST['budget']);
+        $category = htmlspecialchars($_REQUEST['category']);
+        $description = htmlspecialchars($_REQUEST['description']);
+        $amount = htmlspecialchars($_REQUEST['amount']);
+        $frequency = htmlspecialchars($_REQUEST['frequency']);
 
         $stmt = $conn->prepare("INSERT INTO $table (user, budget_name, budget_category, description, amount, frequency) VALUES (?, ?, ?, '?', ?, ?)")
 

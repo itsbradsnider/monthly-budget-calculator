@@ -9,9 +9,9 @@
     $table = "budget_names";
 
     if ($_REQUEST['do'] === "update") {
-        $id = $_REQUEST['id'];
-        $prop = $_REQUEST['prop'];
-        $value = $_REQUEST['value'];
+        $id = htmlspecialchars($_REQUEST['id']);
+        $prop = htmlspecialchars($_REQUEST['prop']);
+        $value = htmlspecialchars($_REQUEST['value']);
 
         $sql = "UPDATE $table SET $prop = $value WHERE $table.id = $id";
     }
@@ -20,7 +20,7 @@
     elseif ($_REQUEST['do'] === "create") {
 
 
-        $name = $_REQUEST['name'];
+        $name = htmlspecialchars($_REQUEST['name']);
 
 
         $sql = "INSERT INTO $table (name) VALUES ('$name')";
@@ -31,7 +31,7 @@
     elseif ($_REQUEST['do'] === "delete") {
 
 
-        $id = $_REQUEST['id'];
+        $id = htmlspecialchars($_REQUEST['id']);
         $sql = "DELETE FROM $table WHERE id=$id";
 
 
