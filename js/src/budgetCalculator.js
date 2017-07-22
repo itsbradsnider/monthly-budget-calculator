@@ -84,6 +84,9 @@
     // we use a Promise to encapsulate our GET/POST requests. All the following
     // database requests use the Promise returned in this function
 
+    // Credit to Google Developer Tools for this:
+    //https://developers.google.com/web/fundamentals/getting-started/primers/promises
+
     function ajx(method, url) {
 
         return new Promise (function (resolve, reject) {
