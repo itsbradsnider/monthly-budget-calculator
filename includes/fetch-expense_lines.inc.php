@@ -30,9 +30,13 @@
     //BUDGET NAMES
     //*********************************//
 
-    $nameSQL = "SELECT * FROM budget_names WHERE id = $budget";
+    $nameStmt = $conn->prepare("SELECT * FROM budget_names WHERE id = ?");
 
-    $nameResult = $conn->query($nameSQL);
+    $nameStmt->bind_param(i, $budget);
+
+    //$nameSQL = "SELECT * FROM budget_names WHERE id = $budget";
+
+    $nameResult = $nameStmt->execute();//$conn->query($nameSQL);
 
     // fetch the name of the budget from id
     if ($nameResult -> num_rows > 0) {
@@ -47,16 +51,20 @@
 
     if ($isAllCategories) { // looking for all categories
 
-        $catSQL = "SELECT * FROM budget_category";
+        $catStmt = $conn->prepare("SELECT * FROM budget_category");
+        //$catSQL = "SELECT * FROM budget_category";
 
     } else { //assumed there is a specific ID we're looking for
 
+        $catStmt = $conn->prepare("SELECT * FROM budget_category WHERE id = $cat");
+
+        $catStmt->bind_param(i, $cat);
         // fetch the name of the category from id
-        $catSQL = "SELECT * FROM budget_category WHERE id = $cat";
+        //$catSQL = "SELECT * FROM budget_category WHERE id = $cat";
 
     }
 
-    $catResult = $conn -> query($catSQL);
+    $catResult = $catStmt->execute();//$conn -> query($catSQL);
 
         if ($catResult -> num_rows > 0) {
             while ($catRow = $catResult -> fetch_assoc()) {
@@ -94,11 +102,17 @@
     // HTML
     //************************************************************************//
 
+
     if ($isAllCategories) {
 
         foreach ($category_array as $expenseCategory) {
-            $sql = "SELECT * FROM expense_lines WHERE budget_name='$budget' AND budget_category='$expenseCategory[id]'";
-            $result = $conn->query($sql);
+
+            $lineStmt = $conn->prepare("SELECT * FROM expense_lines WHERE budget_name='?' AND budget_category='$expenseCategory[id]'")
+
+            $lineStmt->bind_param(s, $budget);
+
+            //$sql = "SELECT * FROM expense_lines WHERE budget_name='$budget' AND budget_category='$expenseCategory[id]'";
+            $result = $lineStmt->execute();//$conn->query($sql);
 ?>
 
             <?php include('expense_lines-module.inc.php');?>
@@ -107,14 +121,22 @@
 
     } else {
 
-        $sql = "SELECT * FROM expense_lines WHERE budget_name='$budget' AND budget_category='$cat'";
-        $result = $conn->query($sql);
+        $lineStmt = $conn->prepare("SELECT * FROM expense_lines WHERE budget_name='?' AND budget_category='?'");
+
+        $lineStmt->bind_param(si, $budget, $cat);
+
+        //$sql = "SELECT * FROM expense_lines WHERE budget_name='$budget' AND budget_category='$cat'";
+
+        $result = $lineStmt->execute();//$conn->query($sql);
 ?>
 
         <?php include('expense_lines-module.inc.php');?>
 <?php
     }
 
+    $nameStmt -> close();
+    $catStmt -> close();
+    $lineStmt -> close();
     $conn -> close();
 
 ?>
