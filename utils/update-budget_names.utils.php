@@ -23,7 +23,6 @@
 
         $stmt->bind_param(sii, $prop, $value, $id);
 
-        //$sql = "UPDATE $table SET $prop = $value WHERE $table.id = $id";
     }
 
 
@@ -36,8 +35,6 @@
 
         $stmt->bind_param(s, $name);
 
-        //$sql = "INSERT INTO $table (name) VALUES ('$name')";
-
     }
 
 
@@ -48,19 +45,7 @@
 
         $stmt = $conn->prepare("DELETE FROM $table WHERE id=?")
 
-        //$sql = "DELETE FROM $table WHERE id=$id";
-
-
     }
-
-
-    /*if($conn -> query($sql) === true) {
-        $last_id = $conn -> insert_id;
-        echo "updated Successfully. Affected ID is: " . $last_id;
-
-    } else {
-        echo "Error updating record" . mysqli_error($conn);
-    }*/
 
     $stmt -> execute();
 
