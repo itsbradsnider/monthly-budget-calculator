@@ -21,11 +21,11 @@
         $amount = $_REQUEST['amount'];
         $frequency = $_REQUEST['frequency'];
 
-        $stmt = $conn->prepare("UPDATE $table SET `description` = ?, `amount` = ?, `frequency` = ? WHERE `$table`.`id` = ?");
+        //$stmt = $conn->prepare("UPDATE $table SET `description` = ?, `amount` = ?, `frequency` = ? WHERE `$table`.`id` = ?");
 
-        $stmt=>bind_param(siii, $description, $amount, $frequency, $expense_id);
+        //$stmt=>bind_param(siii, $description, $amount, $frequency, $expense_id);
 
-        //$sql = "UPDATE $table SET `description` = '$description', `amount` = '$amount', `frequency` = '$frequency' WHERE `$table`.`id` = $expense_id";
+        $sql = "UPDATE $table SET `description` = '$description', `amount` = '$amount', `frequency` = '$frequency' WHERE `$table`.`id` = $expense_id";
     }
 
 
@@ -39,10 +39,10 @@
         $amount = htmlspecialchars($_REQUEST['amount']);
         $frequency = htmlspecialchars($_REQUEST['frequency']);
 
-        $stmt = $conn->prepare("INSERT INTO $table (user, budget_name, budget_category, description, amount, frequency) VALUES (?, ?, ?, '?', ?, ?)")
+        //$stmt = $conn->prepare("INSERT INTO $table (user, budget_name, budget_category, description, amount, frequency) VALUES (?, ?, ?, '?', ?, ?)")
 
-        $stmt->bind_param(isisii, $user, $budget, $category, $description, $amount, $frequency)
-        //$sql = "INSERT INTO $table (user, budget_name, budget_category, description, amount, frequency) VALUES ($user, $budget, $category, '$description', $amount, $frequency)";
+        //$stmt->bind_param(isisii, $user, $budget, $category, $description, $amount, $frequency)
+        $sql = "INSERT INTO $table (user, budget_name, budget_category, description, amount, frequency) VALUES ($user, $budget, $category, '$description', $amount, $frequency)";
 
     }
 
@@ -52,24 +52,24 @@
 
         $id = $_REQUEST['id'];
 
-        $stmt = $conn->prepare("DELETE FROM $table WHERE $table . id=?");
+        //$stmt = $conn->prepare("DELETE FROM $table WHERE $table . id=?");
 
-        $stmt->bind_param(i, $id)
-        //$sql = "DELETE FROM $table WHERE $table . id='$id'";
+        //$stmt->bind_param(i, $id)
+        $sql = "DELETE FROM $table WHERE $table . id='$id'";
 
 
     }
 
-    /*if($conn -> query($sql) === true) {
+    if($conn -> query($sql) === true) {
         $last_id = $conn -> insert_id;
         echo "updated Successfully. Affected ID is: " . $last_id;
 
     } else {
         echo "Error updating record" . mysqli_error($conn);
-    }*/
+    }
 
-    $stmt -> execute();
+    //$stmt -> execute();
 
-    $stmt -> close();
+    //$stmt -> close();
     $conn -> close();
 ?>
