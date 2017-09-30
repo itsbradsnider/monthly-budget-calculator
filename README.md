@@ -70,6 +70,7 @@ CREATE TABLE `frequency` (
 <br>
 
 **users**
+<br>
 _Note: I added the users table because I thought at some point I may want more than
 one user for the app, but there is no functionality currently built in that
 allows you to create or switch to or delete different users._
